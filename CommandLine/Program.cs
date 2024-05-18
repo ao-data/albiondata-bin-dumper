@@ -51,7 +51,7 @@ namespace CommandLine
         exportTypeString = "Text List and JSON";
       }
 
-      string serverTypeString = "game";
+      string serverTypeString = "game"; // called game_x64 on my machine (linux)
       if (ServerType == ServerType.Staging)
       {
         serverTypeString = "staging";

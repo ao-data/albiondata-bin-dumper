@@ -120,7 +120,7 @@ namespace Extractor.Extractors
     {
       var binFileWOE = Path.GetFileNameWithoutExtension(binFile);
 
-      var finalOutPath = Path.ChangeExtension(Path.Combine(outputFolderPath, binFile.Substring(binFile.LastIndexOf("GameData\\") + 9)), ".xml");
+      var finalOutPath = Path.ChangeExtension(Path.Combine(outputFolderPath, binFile.Substring(binFile.LastIndexOf("GameData" + Path.PathSeparator) + 9)), ".xml");
       Console.Out.WriteLine("Extracting " + binFileWOE + ".bin... to: "+ finalOutPath);
       Directory.CreateDirectory(Path.GetDirectoryName(finalOutPath));
 
