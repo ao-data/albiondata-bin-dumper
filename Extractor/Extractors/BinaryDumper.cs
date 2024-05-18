@@ -15,7 +15,7 @@ namespace Extractor.Extractors
       var outFiles = (string[])allFiles.Clone();
       for (var i = 0; i < outFiles.Length; i++)
       {
-        outFiles[i] = outFiles[i].Remove(0, outFiles[i].LastIndexOf("GameData\\") + "GameData\\".Length);
+        outFiles[i] = outFiles[i].Remove(0, outFiles[i].LastIndexOf("GameData"+Path.PathSeparator) + ("GameData"+Path.PathSeparator).Length);
       }
 
       for (var i = 0; i < allFiles.Length; i++)
@@ -26,7 +26,7 @@ namespace Extractor.Extractors
 
     private string GetBinFilePath(string mainGameFolder )
     {
-      return Path.Combine(mainGameFolder, @".\Albion-Online_Data\StreamingAssets\GameData");
+      return Path.Combine(mainGameFolder, ".", "Albion-Online_Data", "StreamingAssets" , "GameData");
     }
 
     private string DecryptBinFile(string outputFolderPath, string binFile, string subdir)

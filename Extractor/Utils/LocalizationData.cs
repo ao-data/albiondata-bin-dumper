@@ -18,7 +18,7 @@ namespace Extractor
 
     public LocalizationData(string mainGameFolder, string outputFolderPath)
     {
-      var xmlFileLocation = BaseExtractor.DecryptBinFile(Path.Combine(mainGameFolder, @".\Albion-Online_Data\StreamingAssets\GameData\localization.bin"), outputFolderPath);
+      var xmlFileLocation = BaseExtractor.DecryptBinFile(Path.Combine(mainGameFolder, ".", "Albion-Online_Data", "StreamingAssets", "GameData" , "localization.bin"), outputFolderPath);
 
       var xmlDoc = new XmlDocument();
       using (var inputStream = File.OpenRead(xmlFileLocation))
