@@ -20,7 +20,7 @@ A .NET 7.0 tool that extracts and converts Albion Online game data from encrypte
 ## Installation
 
 ### Pre-built Binary
-Download the latest release and run `CommandLine.exe` with the required parameters.
+None at the moment.
 
 ### Build from Source
 ```bash
