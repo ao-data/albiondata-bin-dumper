@@ -24,17 +24,12 @@ Download the latest release and run `CommandLine.exe` with the required paramete
 
 ### Build from Source
 ```bash
-git clone <repository-url>
+git clone git@github.com:ao-data/albiondata-bin-dumper.git
 cd albiondata-bin-dumper
 dotnet build
 ```
 
 ## Usage
-
-### Basic Usage
-```bash
-dotnet run -- -d "C:\Program Files\Albion Data Client" -o "C:\path\to\output"
-```
 
 ### Command Line Options
 ```
