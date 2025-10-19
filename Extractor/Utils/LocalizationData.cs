@@ -16,9 +16,9 @@ namespace Extractor
     public Dictionary<string, Dictionary<string, string>> LocalizedNames = new Dictionary<string, Dictionary<string, string>>();
     public Dictionary<string, Dictionary<string, string>> LocalizedDescriptions = new Dictionary<string, Dictionary<string, string>>();
 
-    public LocalizationData(string mainGameFolder, string outputFolderPath)
+    public LocalizationData(string gameDataFolder, string outputFolderPath)
     {
-      var xmlFileLocation = BaseExtractor.DecryptBinFile(Path.Combine(mainGameFolder, @".\Albion-Online_Data\StreamingAssets\GameData\localization.bin"), outputFolderPath);
+      var xmlFileLocation = BaseExtractor.DecryptBinFile(Path.Combine(gameDataFolder, "localization.bin"), outputFolderPath);
 
       var xmlDoc = new XmlDocument();
       using (var inputStream = File.OpenRead(xmlFileLocation))

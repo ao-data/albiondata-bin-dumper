@@ -8,7 +8,7 @@ namespace Extractor.Extractors
 {
   public class ItemExtractor : BaseExtractor
   {
-    public ItemExtractor(string mainGameFolder, string outputFolderPath, ExportMode exportMode, ExportType exportType) : base(mainGameFolder, outputFolderPath, exportMode, exportType)
+    public ItemExtractor(string gameDataFolder, string outputFolderPath, ExportMode exportMode, ExportType exportType) : base(gameDataFolder, outputFolderPath, exportMode, exportType)
     {
     }
 
@@ -125,7 +125,7 @@ namespace Extractor.Extractors
 
     protected override string GetBinFilePath()
     {
-      return Path.Combine(mainGameFolder, @".\Albion-Online_Data\StreamingAssets\GameData\items.bin");
+      return Path.Combine(gameDataFolder, "items.bin");
     }
   }
 }

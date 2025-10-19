@@ -14,12 +14,9 @@ namespace CommandLine
     [Option(Description = "Export Mode", ShortName = "m")]
     private ExportMode ExportMode { get; } = ExportMode.Everything;
 
-    [Option(Description = "Server Type", ShortName = "s")]
-    private ServerType ServerType { get; } = ServerType.Live;
-
     [Required]
-    [Option(Description = "Game Folder", ShortName = "d")]
-    private string MainGameFolder { get; }
+    [Option(Description = "GameData Folder", ShortName = "d")]
+    private string GameDataFolder { get; }
 
     [Required]
     [Option(Description = "Output Folder", ShortName = "o")]
@@ -51,59 +48,50 @@ namespace CommandLine
         exportTypeString = "Text List and JSON";
       }
 
-      string serverTypeString = "game";
-      if (ServerType == ServerType.Staging)
-      {
-        serverTypeString = "staging";
-      }
-      if (ServerType == ServerType.Playground)
-      {
-        serverTypeString = "playground";
-      }
-      string mainGameFolderString = MainGameFolder + serverTypeString;
-      mainGameFolderString = mainGameFolderString.Replace("'", "");
+      string gameDataFolderString = GameDataFolder;
+      gameDataFolderString = gameDataFolderString.Replace("'", "");
 
-      var localizationData = new LocalizationData(mainGameFolderString, OutputFolderPath);
+      var localizationData = new LocalizationData(gameDataFolderString, OutputFolderPath);
 
       switch (ExportMode)
       {
         case ExportMode.ItemExtraction:
-          ExtractItems(mainGameFolderString, localizationData, exportTypeString);
+          ExtractItems(gameDataFolderString, localizationData, exportTypeString);
           break;
         case ExportMode.LocationExtraction:
-          ExtractLocations(mainGameFolderString, exportTypeString);
+          ExtractLocations(gameDataFolderString, exportTypeString);
           break;
         case ExportMode.DumpAllXML:
-          DumpAllXml(mainGameFolderString);
+          DumpAllXml(gameDataFolderString);
           break;
         case ExportMode.Everything:
-          ExtractItems(mainGameFolderString, localizationData, exportTypeString);
-          ExtractLocations(mainGameFolderString, exportTypeString);
-          DumpAllXml(mainGameFolderString);
+          ExtractItems(gameDataFolderString, localizationData, exportTypeString);
+          ExtractLocations(gameDataFolderString, exportTypeString);
+          DumpAllXml(gameDataFolderString);
           break;
       }
 
       Console.Out.WriteLine("#---- Finished Extraction Operation ----#");
     }
 
-    public void ExtractItems(string mainGameFolderString, LocalizationData localizationData, string exportTypeString)
+    public void ExtractItems(string gameDataFolderString, LocalizationData localizationData, string exportTypeString)
     {
-      Console.Out.WriteLine("--- Starting Extraction of Items (" + mainGameFolderString + ") as " + exportTypeString + " ---");
-      new ItemExtractor(mainGameFolderString, OutputFolderPath, ExportMode, ExportType).Extract(localizationData);
+      Console.Out.WriteLine("--- Starting Extraction of Items (" + gameDataFolderString + ") as " + exportTypeString + " ---");
+      new ItemExtractor(gameDataFolderString, OutputFolderPath, ExportMode, ExportType).Extract(localizationData);
       Console.Out.WriteLine("--- Extraction Complete! ---");
     }
 
-    public void ExtractLocations(string mainGameFolderString, string exportTypeString)
+    public void ExtractLocations(string gameDataFolderString, string exportTypeString)
     {
-      Console.Out.WriteLine("--- Starting Extraction of Locations (" + mainGameFolderString + ") as " + exportTypeString + " ---");
-      new LocationExtractor(mainGameFolderString, OutputFolderPath, ExportMode, ExportType).Extract();
+      Console.Out.WriteLine("--- Starting Extraction of Locations (" + gameDataFolderString + ") as " + exportTypeString + " ---");
+      new LocationExtractor(gameDataFolderString, OutputFolderPath, ExportMode, ExportType).Extract();
       Console.Out.WriteLine("--- Extraction Complete! ---");
     }
 
-    public void DumpAllXml(string mainGameFolderString)
+    public void DumpAllXml(string gameDataFolderString)
     {
-      Console.Out.WriteLine("--- Starting Extraction of All Files (" + mainGameFolderString + ") as XML from  ---");
-      new BinaryDumper().Extract(mainGameFolderString, OutputFolderPath);
+      Console.Out.WriteLine("--- Starting Extraction of All Files (" + gameDataFolderString + ") as XML from  ---");
+      new BinaryDumper().Extract(gameDataFolderString, OutputFolderPath);
       Console.Out.WriteLine("--- Extraction Complete! ---");
     }
   }
