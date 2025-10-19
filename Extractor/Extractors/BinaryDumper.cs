@@ -9,13 +9,14 @@ namespace Extractor.Extractors
 {
   public class BinaryDumper
   {
-    public void Extract(string mainGameFolder, string outputFolderPath)
+    public void Extract(string gameDataFolder, string outputFolderPath)
     {
-      var allFiles = Directory.GetFiles(GetBinFilePath(mainGameFolder), "*.bin", SearchOption.AllDirectories);
+      var allFiles = Directory.GetFiles(GetBinFilePath(gameDataFolder), "*.bin", SearchOption.AllDirectories);
       var outFiles = (string[])allFiles.Clone();
       for (var i = 0; i < outFiles.Length; i++)
       {
-        outFiles[i] = outFiles[i].Remove(0, outFiles[i].LastIndexOf("GameData\\") + "GameData\\".Length);
+        var gameDataIndex = outFiles[i].LastIndexOf(Path.Combine("GameData", ""), StringComparison.OrdinalIgnoreCase);
+        outFiles[i] = gameDataIndex >= 0 ? outFiles[i].Substring(gameDataIndex + 9) : Path.GetFileName(outFiles[i]);
       }
 
       for (var i = 0; i < allFiles.Length; i++)
@@ -24,9 +25,9 @@ namespace Extractor.Extractors
       }
     }
 
-    private string GetBinFilePath(string mainGameFolder )
+    private string GetBinFilePath(string gameDataFolder)
     {
-      return Path.Combine(mainGameFolder, @".\Albion-Online_Data\StreamingAssets\GameData");
+      return gameDataFolder;
     }
 
     private string DecryptBinFile(string outputFolderPath, string binFile, string subdir)

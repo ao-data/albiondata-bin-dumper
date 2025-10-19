@@ -47,14 +47,14 @@ namespace Extractor.Extractors
   public abstract class BaseExtractor
   {
     protected readonly string outputFolderPath;
-    protected readonly string mainGameFolder;
+    protected readonly string gameDataFolder;
     protected readonly ExportType exportType;
     protected readonly ExportMode exportMode;
 
-    protected BaseExtractor(string mainGameFolder, string outputFolderPath, ExportMode exportMode, ExportType exportType)
+    protected BaseExtractor(string gameDataFolder, string outputFolderPath, ExportMode exportMode, ExportType exportType)
     {
       this.outputFolderPath = outputFolderPath;
-      this.mainGameFolder = mainGameFolder;
+      this.gameDataFolder = gameDataFolder;
       this.exportType = exportType;
       this.exportMode = exportMode;
     }
@@ -120,7 +120,9 @@ namespace Extractor.Extractors
     {
       var binFileWOE = Path.GetFileNameWithoutExtension(binFile);
 
-      var finalOutPath = Path.ChangeExtension(Path.Combine(outputFolderPath, binFile.Substring(binFile.LastIndexOf("GameData\\") + 9)), ".xml");
+      var gameDataIndex = binFile.LastIndexOf(Path.Combine("GameData", ""), StringComparison.OrdinalIgnoreCase);
+      var relativePath = gameDataIndex >= 0 ? binFile.Substring(gameDataIndex + 9) : Path.GetFileName(binFile);
+      var finalOutPath = Path.ChangeExtension(Path.Combine(outputFolderPath, relativePath), ".xml");
       Console.Out.WriteLine("Extracting " + binFileWOE + ".bin... to: "+ finalOutPath);
       Directory.CreateDirectory(Path.GetDirectoryName(finalOutPath));
 
